@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Client Registeration Form</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'dashboard/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{%static 'dashboard/css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'dashboard/css/custom-css.css' %}">
+</head>
+
+<body class="background-theme-color">
+
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image">
+                        
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create a <b>Client</b> Account!</h1>
+                            </div>
+                            <form class="user" id="createLawyerForm" action="{% url 'registration:createClient' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" value="{{fname}}" name="fname"
+                                            placeholder="First Name" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" name="lname" value="{{lname}}"
+                                            placeholder="Last Name" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <input type="email" class="form-control my-email form-control-user" name="email" value="{{email}}"
+                                            placeholder="Email" required>
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" pattern="[0-9]+" class="form-control form-control-user" name="pnumber" value="{{phone_number}}"
+                                            placeholder="Phone Number" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" name="address" value="{{address}}"
+                                            placeholder="Address" required>
+                                    </div>
+                                </div>
+                        
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" class="form-control my-passwords form-control-user"
+                                            name="password" placeholder="Password" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" name="confirmPassword" class="form-control my-passwords form-control-user"
+                                             placeholder="Repeat Password" required>
+                                    </div>
+                                </div>
+
+                                <p class="text-danger" id="main-error"></p>
+
+
+                                <button type="submit" class="btn btn-primary mt-4 btn-user btn-block">Register as client</button>
+                                <!-- <input type="submit" value="Register " class="btn btn-primary btn-user btn-block"> -->
+                                <div class="text-center my-3">
+                                    <h6>OR</h6>
+                                </div>
+
+                                <a href="{% url 'registration:lawyer' %}">
+                                    <button type="button" class="btn btn-secondary btn-user btn-block">Register as lawyer</button>
+                                </a>
+
+                                
+                                <!-- <hr> -->
+                                <!-- <a href="index.html" class="btn btn-google btn-user btn-block">
+                                    <i class="fab fa-google fa-fw"></i> Register with Google
+                                </a>
+                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+                                </a> -->
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small" href="{% url 'application:login' %}">Already have an account? Login!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="{%static 'dashboard/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{%static 'dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{%static 'dashboard/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+</body>
+
+<script>
+    let get_msg = `{% for message in messages %}{{message}}{% endfor %}`.trim();
+
+    if (get_msg != "") {
+        $(`.${'{{border}}'.trim()}`).css("border", "solid 1px red");
+        $("#main-error").text(get_msg);
+    }
+
+    $(".to-select-plan").on("click", function () {
+        $(".to-select-plan").removeClass("selected-plan");
+        let selected_id = parseInt(this.id.split("-")[1]);
+        $("#selected_plan").val(selected_id);
+        $(this).addClass("selected-plan");
+    });
+
+
+    $("#createLawyerForm").on("submit", function () {
+        if ($("#selected_plan").val() == "") {
+            $("#main-error").text("Kindly select the plan first!");
+            return false;
+        } 
+        return true;
+    });
+
+
+</script>
+
+</html>

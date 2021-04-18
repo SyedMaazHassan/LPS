@@ -1,0 +1,277 @@
+{% extends 'dashboard/include/base.inc.html' %}
+{% load static %}
+
+{% block PageTitle %}Admin / Lawyer requests{% endblock PageTitle %}
+
+{% block Content %}
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">All new requests</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone number</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% if not all_requests %}
+                            <tr>
+                                <td colspan="4">
+                                    <div class="text-center alert alert-danger" role="alert">
+                                        No lawyer request right now!
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endif %}
+
+                        {% for request in all_requests %}
+                            {% include 'dashboard/adminpanel/inc/request-panel.html' %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Approved lawyers</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone number</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if not all_approved %}
+                            <tr>
+                                <td colspan="4">
+                                    <div class="text-center alert alert-danger" role="alert">
+                                        No approved lawyer right now!
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endif %}
+
+                        {% for request in all_approved %}
+                            {% include 'dashboard/adminpanel/inc/request-panel.html' %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">All rejected lawyers</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone number</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% if not all_rejected %}
+                            <tr>
+                                <td colspan="4">
+                                    <div class="text-center alert alert-danger" role="alert">
+                                        No rejected lawyer right now!
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endif %}
+
+                        {% for request in all_rejected %}
+                            {% include 'dashboard/adminpanel/inc/request-panel.html' %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <div class="modal fade" id="lawyer-details" tabindex="-1" role="dialog" aria-labelledby="lawyer-details-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="lawyer-detailsTitle">Lawyer details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <h6 class="text-muted">First Name</h6>
+                            <h6 style="color: #000000;" id="first_name">Syed Maaz</h6>
+                        </div>
+
+                        <div class="col-sm-6 mb-3">
+                            <h6 class="text-muted">Last Name</h6>
+                            <h6 style="color: #000000;" id="last_name">Hassan</h6>
+                        </div>
+
+                        <div class="col-sm-6 mb-3">
+                            <h6 class="text-muted">Email address</h6>
+                            <h6 style="color: #000000;" id="email">hafizmaazhassan@gmail.com</h6>
+                        </div>
+
+                        <div class="col-sm-6 mb-3">
+                            <h6 class="text-muted">Phone no.</h6>
+                            <h6 style="color: #000000;" id="phone">+923472533106</h6>
+                        </div>
+                        
+                        <div class="col-sm-12 mb-3">
+                            <h6 class="text-muted">Address</h6>
+                            <h6 style="color: #000000;" id="address">House abc, sector 51-B Karachi.</h6>
+                        </div>
+
+                        <div class="col-sm-6 mb-3">
+                            <h6 class="text-muted">Bar number</h6>
+                            <h6 style="color: #000000;" id="bar">648445664456544</h6>
+                        </div>
+
+                        <div class="col-sm-6 mb-3">
+                            <h6 class="text-muted">Lisence number</h6>
+                            <h6 style="color: #000000;" id="lisence">64866846486464</h6>
+                        </div>
+
+                        <div class="col-sm-6 mb-3">
+                            <h6 class="text-muted">Selected plan</h6>
+                            <h6 style="color: #000000;" id="plan">$1000 / mon. - 10 sublawyers</h6>
+                        </div>
+
+                        <div class="col-sm-6 mb-3">
+                            <h6 class="text-muted">Joined date</h6>
+                            <h6 style="color: #000000;"  id="joined"></h6>
+                        </div>
+
+                        <div class="col-sm-12 py-3">
+                            <div class="alert alert-success text-center" style="display: none;" id="success" role="alert">
+                                
+                            </div>
+
+                            <div class="alert alert-danger text-center" style="display: none;" id="error" role="alert">
+                                
+                            </div>
+                        </div>
+                      
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger operation reject">Reject</button>
+                    <button type="button" class="btn btn-success operation accept">Accept</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+<script>
+    var selected_lawyer = null;
+    $(".view-details").on("click", function () {
+        let this_id = this.id.split("-")[1];
+        selected_lawyer = this_id;
+        $.ajax({
+            url: "{% url 'adminpanel:getLawyer' %}",
+            type: "GET", 
+            data: {
+                'id': this_id,
+            },
+            success: (response)=>{
+                console.log(response);
+                if (response.status) {
+                    $("#first_name").text(response.details.first_name);
+                    $("#last_name").text(response.details.last_name);
+                    $("#email").text(response.details.email);
+                    $("#phone").text(response.details.phone_number);
+                    $("#address").text(response.details.address);
+                    $("#bar").text(response.details.bar_number);
+                    $("#lisence").text(response.details.lisence_number);
+                    $("#joined").text(response.details.joined_at);
+                    $("#plan").text(`$${response.details.selected_plan.price} / mon. - ${response.details.selected_plan.sublowers_allowed} sublawyers`);
+                    $("#lawyer-details").modal("show");
+                }else{
+                    alert(response.msg);
+                }
+            }
+        })
+    });
+
+    $(".operation").on("click", function () {
+        if(!(selected_lawyer)){
+            return;
+        }
+        let container = this.id.split("-"); 
+        let operation = null;
+
+        if ($(this).hasClass("reject")) {
+            operation = "reject";
+        }else if($(this).hasClass("accept")){
+            operation = "accept";
+        }else{
+            return;
+        }
+
+        let number = selected_lawyer;
+        $(`#error-${number}`).hide();
+        $.ajax({
+            url: "{% url 'adminpanel:requestoperation' %}",
+            type: "GET", 
+            data: {
+                'operation': operation,
+                'id': number 
+            },
+            success: (response)=>{
+                if (response.status) {
+                    
+                    $("#success").text(response.msg)
+                    $(`#success`).show();
+
+                    setTimeout(() => {
+                        location.reload();                        
+                    }, 1000);
+
+                }else{
+                    $("#error").text(response.msg)
+                    $(`#error`).show();
+                }
+            }
+        })
+    });
+
+
+</script>
+
+
+{% endblock Content %}
+
+

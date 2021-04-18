@@ -1,0 +1,133 @@
+{% extends 'dashboard/include/base.inc.html' %}
+{% load static %}
+
+{% block PageTitle %}Lawyers{% endblock PageTitle %}
+
+{% block Content %}
+
+    <div>
+        <div class="row">
+            {% for lawyer in all_lawyers %}
+
+            <div class="col-sm-6">
+                <div class="card p-3">
+                    <div class="d-flex align-items-center">
+                        <div class="image"> 
+                            {% if lawyer.profile_pic %}
+                            <img src="media/{{ lawyer.profile_pic }}" class="rounded" width="155">
+                            {% else %}
+                                <img src="{% static 'img/profile_icon.png' %}" class="rounded" width="155"> 
+                            {% endif %}
+                        </div>
+                        <div class="ml-3 w-100">
+                            <h4 class="mb-0 mt-0">{{ lawyer.first_name }} {{ lawyer.last_name }} </h4> <span>Senior Journalist</span>
+                            <div class="p-2 border my-2 justify-content-between rounded stats">
+                                <div class="row">
+                                    <div class="col-sm-6 d-flex align-items-center">
+                                        <i class="fas fa-user mx-3"></i>
+                                        <span class="articles">Followers</span>
+                                        <span class="number1 text-primary mx-3"><b>38</b></span> 
+                                    </div>
+
+                                    <div class="col-sm-6 d-flex align-items-center">
+                                        <i class="fas fa-star mx-3"></i>
+                                        <span class="articles">Ratings</span>
+                                        <span class="number1 text-primary mx-3"><b>4.9</b></span> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button mt-2 d-flex flex-row align-items-center"> 
+                                <button class="btn btn-outline-primary w-100">Contact me</button> 
+                                <button class="btn btn-primary w-100 ml-2">Follow</button> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+       
+    </div>
+
+    
+<script>
+    var selected_lawyer = null;
+    $(".view-details").on("click", function () {
+        let this_id = this.id.split("-")[1];
+        selected_lawyer = this_id;
+        $.ajax({
+            url: "{% url 'adminpanel:getLawyer' %}",
+            type: "GET", 
+            data: {
+                'id': this_id,
+            },
+            success: (response)=>{
+                console.log(response);
+                if (response.status) {
+                    $("#first_name").text(response.details.first_name);
+                    $("#last_name").text(response.details.last_name);
+                    $("#email").text(response.details.email);
+                    $("#phone").text(response.details.phone_number);
+                    $("#address").text(response.details.address);
+                    $("#bar").text(response.details.bar_number);
+                    $("#lisence").text(response.details.lisence_number);
+                    $("#joined").text(response.details.joined_at);
+                    $("#plan").text(`$${response.details.selected_plan.price} / mon. - ${response.details.selected_plan.sublowers_allowed} sublawyers`);
+                    $("#lawyer-details").modal("show");
+                }else{
+                    alert(response.msg);
+                }
+            }
+        })
+    });
+
+    $(".operation").on("click", function () {
+        if(!(selected_lawyer)){
+            return;
+        }
+        let container = this.id.split("-"); 
+        let operation = null;
+
+        if ($(this).hasClass("reject")) {
+            operation = "reject";
+        }else if($(this).hasClass("accept")){
+            operation = "accept";
+        }else{
+            return;
+        }
+
+        let number = selected_lawyer;
+        $(`#error-${number}`).hide();
+        $.ajax({
+            url: "{% url 'adminpanel:requestoperation' %}",
+            type: "GET", 
+            data: {
+                'operation': operation,
+                'id': number 
+            },
+            success: (response)=>{
+                if (response.status) {
+                    
+                    $("#success").text(response.msg)
+                    $(`#success`).show();
+
+                    setTimeout(() => {
+                        location.reload();                        
+                    }, 1000);
+
+                }else{
+                    $("#error").text(response.msg)
+                    $(`#error`).show();
+                }
+            }
+        })
+    });
+
+
+</script>
+
+
+{% endblock Content %}
+
+

@@ -1,0 +1,19 @@
+{% load static %}
+
+<tr>
+    <td>
+        <div class="d-flex align-items-center">
+            <i class="material-icons mr-3">account_circle</i>
+            {{ request.full_name }}    
+        </div>
+    </td>
+    <td>{{ request.email }}</td>
+    <td>{{ request.phone_number }}</td>
+    <td>
+        <button type="button" class="btn btn-primary view-details" style="width:80px;" id="view-{{ request.id }}">View</button>
+        <!-- <button type="button" class="btn btn-success" id="accept_{{request.id}}" style="width:80px;">Accept</button>
+        <button type="button" class="btn btn-danger" id="reject_{{request.id}}" style="width:80px;">Reject</button> -->
+    </td>
+</tr>
+
+

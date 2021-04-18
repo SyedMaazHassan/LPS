@@ -1,0 +1,88 @@
+.r-20{
+    border-radius: 20px;
+}
+
+.background-theme-color{
+    background-color: #e0d9ff;
+}
+
+.to-select-plan{
+    transition-duration: 0.25s;
+}
+
+.choose{
+    transition-duration: 0.25s;
+    box-shadow: 10px 10px 10px #eeeeee;
+}
+
+.google-box{
+    box-shadow: 0 0 2px rgb(0 0 0 / 12%), 0 2px 2px rgb(0 0 0 / 24%);
+    border-radius: 10px;
+}
+
+.to-select-plan:hover{
+    transition-duration: 0.25s;
+    /* border: solid 2px #ad9cff; */
+    -webkit-box-shadow:inset 0px 0px 0px 3px #ad9cff;
+    -moz-box-shadow:inset 0px 0px 0px 3px #ad9cff;
+    box-shadow:inset 0px 0px 0px 3px #ad9cff;
+}
+
+.selected-plan{
+    cursor: pointer;
+    transition-duration: 0.25s;
+    -webkit-box-shadow:inset 0px 0px 0px 3px #ad9cff;
+    -moz-box-shadow:inset 0px 0px 0px 3px #ad9cff;
+    box-shadow:inset 0px 0px 0px 3px #ad9cff;
+}
+
+
+/* profile cards css */
+
+body {
+    background-color: #B3E5FC;
+    border-radius: 10px
+}
+
+/* .card {
+    width: 400px;
+    border: none;
+    border-radius: 10px;
+    background-color: #fff
+} */
+
+.stats {
+    background: #f2f5f8 !important;
+    color: #000 !important
+}
+
+.articles {
+    font-size: 10px;
+    color: #a1aab9
+}
+
+.number1 {
+    font-weight: 500
+}
+
+.followers {
+    font-size: 10px;
+    color: #a1aab9
+}
+
+.number2 {
+    font-weight: 500
+}
+
+.rating {
+    font-size: 10px;
+    color: #a1aab9
+}
+
+.mk-pointer{
+    cursor: pointer;
+}
+
+.number3 {
+    font-weight: 500
+}
